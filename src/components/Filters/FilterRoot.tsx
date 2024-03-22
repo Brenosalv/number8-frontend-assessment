@@ -7,8 +7,8 @@ interface FilterRootProps {
 
 export function FilterRoot({ label, children }: FilterRootProps) {
   return (
-    <div className="flex gap-2 items-center">
-      <label>{label}:</label>
+    <div className="flex gap-2 items-center w-full flex-wrap">
+      <label className="text-nowrap">{label}:</label>
       {children}
     </div>
   )

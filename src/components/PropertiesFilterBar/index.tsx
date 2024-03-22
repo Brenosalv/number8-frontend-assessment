@@ -1,45 +1,47 @@
-import { Property } from "@/types/Property"
 import { getArrayByMaxNumber } from "@/utils/getMaxNumber"
+import { getPropertiesData } from "@/utils/getPropertiesData"
 import { Button } from "../Button"
 import { Filter } from "../Filters"
 
 export async function PropertiesFilterBar() {
-  const response = await fetch("https://s3.us-west-2.amazonaws.com/cdn.number8.com/LA/listings.json")
+  try {
+    const {
+      maxBedroomAmount,
+      maxBathroomAmount,
+      maxParkingAmount,
+      maxPrice,
+      minPrice,
+    } = await getPropertiesData()
 
-  const properties: Property[] = await response.json()
+    return (
+      <div className="flex flex-row gap-x-8 w-full max-sm:grid max-sm:grid-cols-2 max-sm:gap-6">
+        <Filter.Number
+          label="Bedrooms"
+          options={getArrayByMaxNumber(maxBedroomAmount)}
+        />
 
-  const maxBedroomAmount = Math.max(...properties.map((property) => property.Bedrooms))
-  const maxBathroomAmount = Math.max(...properties.map((property) => property.Bathrooms))
-  const maxParkingAmount = Math.max(...properties.map((property) => property.Parking))
-  const maxPrice = Math.max(...properties.map((property) => property["Sale Price"]))
-  const minPrice = Math.min(...properties.map((property) => property["Sale Price"]))
+        <Filter.Number
+          label="Bathrooms"
+          options={getArrayByMaxNumber(maxBathroomAmount)}
+        />
 
-  return (
-    <div className="flex items-center gap-x-8">
-      <Filter.Number
-        label="Bedrooms"
-        options={getArrayByMaxNumber(maxBedroomAmount)}
-      />
+        <Filter.Number
+          label="Parking"
+          options={getArrayByMaxNumber(maxParkingAmount)}
+        />
 
-      <Filter.Number
-        label="Bathrooms"
-        options={getArrayByMaxNumber(maxBathroomAmount)}
-      />
+        <Filter.Range
+          label="Price Range"
+          minPrice={minPrice}
+          maxPrice={maxPrice}
+        />
 
-      <Filter.Number
-        label="Parking"
-        options={getArrayByMaxNumber(maxParkingAmount)}
-      />
-
-      <Filter.Range
-        label="Price Range"
-        minPrice={minPrice}
-        maxPrice={maxPrice}
-      />
-
-      <Button>
-        Search
-      </Button>
-    </div>
-  )
+        <Button>
+          Search
+        </Button>
+      </div>
+    )
+  } catch (error) {
+    alert(error) // TODO: Implement a snackbar to show the error to the user.
+  }
 }
