@@ -1,8 +1,13 @@
+import { FilterType } from "@/types/Filter"
 import { Property } from "@/types/Property"
 
-export async function getPropertiesData() {
+interface PropertiesData extends FilterType {
+  properties: Property[]
+}
+
+export async function getPropertiesData(): Promise<PropertiesData> {
   try {
-    const response = await fetch("https://s3.us-west-2.amazonaws.com/cdn.number8.com/LA/listings.json")
+    const response = await fetch("https://s3.us-west-2.amazonaws.com/cdn.number8.com/LA/listings.json", { next: { revalidate: 3600 } })
 
     const properties: Property[] = await response.json()
 

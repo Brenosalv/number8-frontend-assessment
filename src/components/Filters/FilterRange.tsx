@@ -1,24 +1,22 @@
 "use client"
 
-import { ChangeEvent, useEffect, useState } from "react"
+import { InputHTMLAttributes } from "react"
+import { useFormContext } from "react-hook-form"
 import { FilterRoot } from "./FilterRoot"
 
-interface FilterRangeProps {
+interface FilterRangeProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   minPrice: number
   maxPrice: number
+  name: string
 }
 
-export function FilterRange({ label, maxPrice, minPrice }: FilterRangeProps) {
-  const [currentValue, setCurrentValue] = useState<number | null>(null)
+export function FilterRange({ label, maxPrice, minPrice, ...rest }: FilterRangeProps) {
+  const { watch, register } = useFormContext()
 
-  useEffect(() => {
-    setCurrentValue(minPrice)
-  }, [minPrice])
+  const watchedValue = watch(rest.name)
 
-  function handleRangeValueChange(event: ChangeEvent<HTMLInputElement>) {
-    setCurrentValue(Number(event.target.value))
-  }
+  const currentValue = watchedValue ? `$${String(watchedValue).slice(0, 3)}k` : ""
 
   return (
     <FilterRoot label={label}>
@@ -27,16 +25,17 @@ export function FilterRange({ label, maxPrice, minPrice }: FilterRangeProps) {
           type="range"
           min={minPrice}
           max={maxPrice}
-          value={currentValue || 0}
-          onChange={handleRangeValueChange}
+          step={1000}
+          {...rest}
+          {...register(rest.name)}
         />
 
-        <span
+        {currentValue && <span
           id="currentValue"
           className="text-gray-600 text-xs w-24 absolute top-4 left-12"
         >
-          Max: ${currentValue}
-        </span>
+          Max: {currentValue}
+        </span>}
       </div>
     </FilterRoot>
   )

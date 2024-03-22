@@ -1,7 +1,5 @@
-import { getArrayByMaxNumber } from "@/utils/getMaxNumber"
 import { getPropertiesData } from "@/utils/getPropertiesData"
-import { Button } from "../Button"
-import { Filter } from "../Filters"
+import { FilterForm } from "./FilterForm"
 
 export async function PropertiesFilterBar() {
   try {
@@ -14,32 +12,13 @@ export async function PropertiesFilterBar() {
     } = await getPropertiesData()
 
     return (
-      <div className="flex flex-row gap-x-8 w-full max-sm:grid max-sm:grid-cols-2 max-sm:gap-6">
-        <Filter.Number
-          label="Bedrooms"
-          options={getArrayByMaxNumber(maxBedroomAmount)}
-        />
-
-        <Filter.Number
-          label="Bathrooms"
-          options={getArrayByMaxNumber(maxBathroomAmount)}
-        />
-
-        <Filter.Number
-          label="Parking"
-          options={getArrayByMaxNumber(maxParkingAmount)}
-        />
-
-        <Filter.Range
-          label="Price Range"
-          minPrice={minPrice}
-          maxPrice={maxPrice}
-        />
-
-        <Button>
-          Search
-        </Button>
-      </div>
+      <FilterForm
+        maxBedroomAmount={maxBedroomAmount}
+        maxBathroomAmount={maxBathroomAmount}
+        maxParkingAmount={maxParkingAmount}
+        maxPrice={maxPrice}
+        minPrice={minPrice}
+      />
     )
   } catch (error) {
     alert(error) // TODO: Implement a snackbar to show the error to the user.
