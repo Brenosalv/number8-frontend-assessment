@@ -1,5 +1,5 @@
 export interface Property {
-  Id: string
+  Id: number
   DateListed: string
   Title: string
   Description: string

@@ -1,6 +1,6 @@
 import { FilterFormTypes } from "@/types/Filter"
 import { Reducer } from "react"
-import { FilterAction } from "./types"
+import { FilterAction } from "../types"
 
 export const filterReducer: Reducer<FilterFormTypes | null, FilterAction> = (state: FilterFormTypes | null, action: FilterAction): FilterFormTypes | null => {
   switch (action.type) {

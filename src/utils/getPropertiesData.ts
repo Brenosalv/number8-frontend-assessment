@@ -2,6 +2,7 @@ import { FilterType } from "@/types/Filter"
 import { Property } from "@/types/Property"
 
 interface PropertiesData extends FilterType {
+  id?: string
   properties: Property[]
 }
 

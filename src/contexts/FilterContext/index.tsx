@@ -2,7 +2,7 @@
 
 import { FilterFormTypes } from "@/types/Filter"
 import { Dispatch, createContext, useContext, useReducer } from "react"
-import { filterReducer } from "./filterReducer"
+import { filterReducer } from "./reducers/filterReducer"
 import { FilterAction, FilterContextProviderProps, FilterContextType } from "./types"
 
 const FilterContext = createContext<{

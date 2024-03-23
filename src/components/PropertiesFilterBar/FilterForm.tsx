@@ -17,7 +17,7 @@ export function FilterForm({
   maxPrice,
   minPrice,
 }: FilterType) {
-  const locallyStoredFilterStr = localStorage.getItem("@filter");
+  const locallyStoredFilterStr = localStorage.getItem("@filter")
   const locallyStoredFilterObj: FilterFormTypes | null = locallyStoredFilterStr ? JSON.parse(locallyStoredFilterStr) : null
 
   const initialValues = {
