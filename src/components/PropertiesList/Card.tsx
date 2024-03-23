@@ -39,9 +39,9 @@ export function Card({ title, location, bedrooms, bathrooms, price, thumbnailUrl
           {formatPrice(price)}
         </span>
 
-        <Button>
+        <Button.Primary>
           View Details
-        </Button>
+        </Button.Primary>
       </div>
     </div>
   )

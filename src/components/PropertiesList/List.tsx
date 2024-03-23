@@ -1,6 +1,7 @@
 "use client"
 
 import { useFilterContext } from "@/contexts/FilterContext"
+import { FilterFormTypes } from "@/types/Filter"
 import { Property } from "@/types/Property"
 import { Card } from "./Card"
 
@@ -11,12 +12,17 @@ interface ListProps {
 export function List({ properties }: ListProps) {
   const { filterState } = useFilterContext()
 
-  const filteredProperties = filterState ? properties.filter((property) => (
-    property.Bedrooms === filterState.bedrooms &&
-    property.Bathrooms === filterState.bathrooms &&
-    property.Parking === filterState.parking &&
-    property["Sale Price"] <= (filterState.priceRange ?? 0)
-  )) : properties
+  const locallyStoredFilterStr = localStorage.getItem("@filter");
+  const locallyStoredFilterObj: FilterFormTypes = locallyStoredFilterStr ? JSON.parse(locallyStoredFilterStr) : null
+
+  const filteredProperties = (filterState || locallyStoredFilterObj) ? properties.filter(property => {
+    return (
+      property.Bedrooms === (locallyStoredFilterObj?.bedrooms || filterState?.bedrooms) &&
+      property.Bathrooms === (locallyStoredFilterObj?.bathrooms || filterState?.bathrooms) &&
+      property.Parking === (locallyStoredFilterObj?.parking || filterState?.parking) &&
+      property["Sale Price"] <= (locallyStoredFilterObj?.priceRange || filterState?.priceRange || 0)
+    )
+  }) : properties
 
   return (
     <div className="grid gap-x-4 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

@@ -12,4 +12,5 @@ export type FilterAction =
   | { type: 'SET_BATHROOMS'; payload: number }
   | { type: 'SET_PARKING'; payload: number }
   | { type: 'SET_PRICE_RANGE'; payload: number }
-  | { type: 'UPDATE_ALL'; payload: Partial<FilterFormTypes> }
+  | { type: 'UPDATE_ALL'; payload: FilterFormTypes }
+  | { type: 'DELETE_ALL'; }
