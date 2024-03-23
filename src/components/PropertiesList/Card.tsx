@@ -1,8 +1,10 @@
 import { formatPrice } from "@/utils/formatPrice"
 import Image from "next/image"
+import Link from "next/link"
 import { Button } from "../Button"
 
 interface CardProps {
+  id: number
   title: string
   location: string
   price: number
@@ -11,7 +13,15 @@ interface CardProps {
   thumbnailUrl: string
 }
 
-export function Card({ title, location, bedrooms, bathrooms, price, thumbnailUrl }: CardProps) {
+export function Card({
+  id,
+  title,
+  location,
+  bedrooms,
+  bathrooms,
+  price,
+  thumbnailUrl
+}: CardProps) {
   return (
     <div className="flex flex-col border">
       <Image
@@ -39,9 +49,11 @@ export function Card({ title, location, bedrooms, bathrooms, price, thumbnailUrl
           {formatPrice(price)}
         </span>
 
-        <Button.Primary>
-          View Details
-        </Button.Primary>
+        <Link href={id.toString()}>
+          <Button.Primary className="w-full">
+            View Details
+          </Button.Primary>
+        </Link>
       </div>
     </div>
   )

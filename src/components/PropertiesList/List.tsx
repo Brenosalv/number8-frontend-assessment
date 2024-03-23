@@ -32,6 +32,7 @@ export function List({ properties }: ListProps) {
           {filteredProperties.map((property) => (
             <Card
               key={property.Id}
+              id={property.Id}
               location={property.Location}
               title={property.Title}
               bedrooms={property.Bedrooms}
