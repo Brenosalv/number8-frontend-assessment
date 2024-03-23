@@ -4,6 +4,7 @@ import { useFilterContext } from "@/contexts/FilterContext"
 import { FilterFormTypes } from "@/types/Filter"
 import { Property } from "@/types/Property"
 import { Card } from "./Card"
+import { EmptyList } from "./EmptyList"
 
 interface ListProps {
   properties: Property[]
@@ -25,18 +26,24 @@ export function List({ properties }: ListProps) {
   }) : properties
 
   return (
-    <div className="grid gap-x-4 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {filteredProperties.map((property) => (
-        <Card
-          key={property.Id}
-          location={property.Location}
-          title={property.Title}
-          bedrooms={property.Bedrooms}
-          bathrooms={property.Bathrooms}
-          price={property["Sale Price"]}
-          thumbnailUrl={property.PictureURL}
-        />
-      ))}
+    <div className="flex items-center justify-center">
+      {filteredProperties.length > 0 ? (
+        <div className="grid gap-x-4 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {filteredProperties.map((property) => (
+            <Card
+              key={property.Id}
+              location={property.Location}
+              title={property.Title}
+              bedrooms={property.Bedrooms}
+              bathrooms={property.Bathrooms}
+              price={property["Sale Price"]}
+              thumbnailUrl={property.PictureURL}
+            />
+          ))}
+        </div>
+      ) : (
+        <EmptyList />
+      )}
     </div>
   )
 }
