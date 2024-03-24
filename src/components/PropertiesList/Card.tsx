@@ -11,6 +11,7 @@ interface CardProps {
   bedrooms: number
   bathrooms: number
   thumbnailUrl: string
+  onViewDetailsClick?: () => void
 }
 
 export function Card({
@@ -20,7 +21,8 @@ export function Card({
   bedrooms,
   bathrooms,
   price,
-  thumbnailUrl
+  thumbnailUrl,
+  onViewDetailsClick
 }: CardProps) {
   return (
     <div className="flex flex-col border">
@@ -50,7 +52,7 @@ export function Card({
         </span>
 
         <Link href={id.toString()}>
-          <Button.Primary className="w-full">
+          <Button.Primary className="w-full" onClick={onViewDetailsClick}>
             View Details
           </Button.Primary>
         </Link>

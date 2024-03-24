@@ -1,4 +1,5 @@
 import { FilterFormTypes } from "@/types/Filter"
+import { FILTER } from "@/utils/constants"
 import { Reducer } from "react"
 import { FilterAction } from "../types"
 
@@ -13,11 +14,11 @@ export const filterReducer: Reducer<FilterFormTypes | null, FilterAction> = (sta
     case "SET_PRICE_RANGE":
       return { ...state, priceRange: action.payload }
     case "UPDATE_ALL": {
-      localStorage.setItem("@filter", JSON.stringify(action.payload))
+      localStorage.setItem(FILTER, JSON.stringify(action.payload))
       return { ...action.payload }
     }
     case "DELETE_ALL": {
-      localStorage.removeItem("@filter")
+      localStorage.removeItem(FILTER)
       return null
     }
     default:

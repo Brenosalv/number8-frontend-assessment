@@ -3,6 +3,7 @@
 import { useFilterContext } from "@/contexts/FilterContext"
 import { filterValidationSchema } from "@/schemas/filterForm"
 import { FilterFormTypes, FilterType } from "@/types/Filter"
+import { FILTER } from "@/utils/constants"
 import { getArrayByMaxNumber } from "@/utils/getMaxNumber"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useState } from "react"
@@ -17,7 +18,7 @@ export function FilterForm({
   maxPrice,
   minPrice,
 }: FilterType) {
-  const locallyStoredFilterStr = localStorage.getItem("@filter")
+  const locallyStoredFilterStr = localStorage.getItem(FILTER)
   const locallyStoredFilterObj: FilterFormTypes | null = locallyStoredFilterStr ? JSON.parse(locallyStoredFilterStr) : null
 
   const initialValues = {

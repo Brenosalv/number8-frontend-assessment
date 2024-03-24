@@ -10,6 +10,7 @@ import { Textarea } from "./Textarea"
 
 export function ContactAgentForm() {
   const [isMessageSent, setIsMessageSent] = useState(false)
+
   const form = useForm({
     resolver: yupResolver(contactAgentFormValidationSchema)
   })
@@ -31,27 +32,28 @@ export function ContactAgentForm() {
 
   return (
     <FormProvider {...form}>
-      <section className="w-[35%] max-md:w-full">
-        <form className="bg-gray-200 flex flex-col gap-4 p-8 h-fit" onSubmit={handleSubmit(onSubmit)}>
-          <h4 className="text-center text-xl">
-            Contact Agent
-          </h4>
+      <form
+        className="bg-gray-200 border border-gray-300 flex flex-col gap-4 p-8 min-h-96"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <h4 className="text-center text-xl">
+          Contact Agent
+        </h4>
 
-          <Input placeholder="Full Name *" name="fullName" />
-          <Input name="email" placeholder="Email *" />
-          <Input name="phoneNumber" placeholder="Phone Number *" />
-          <Textarea name="comments" placeholder="Comments *" cols={30} rows={5} />
+        <Input placeholder="Full Name *" name="fullName" />
+        <Input name="email" placeholder="Email *" />
+        <Input name="phoneNumber" placeholder="Phone Number *" />
+        <Textarea name="comments" placeholder="Comments *" cols={30} rows={5} />
 
-          {isMessageSent ? (
-            <span className="text-green-500 text-center">
-              Message sent successfully
-            </span>
-          ) : (
-            <Button.Primary className="w-fit mx-auto" type="submit">
-              Contact Now
-            </Button.Primary>)}
-        </form>
-      </section>
+        {isMessageSent ? (
+          <span className="text-green-500 text-center">
+            Message sent successfully
+          </span>
+        ) : (
+          <Button.Primary className="w-fit mx-auto" type="submit">
+            Contact Now
+          </Button.Primary>)}
+      </form>
     </FormProvider >
   )
 }

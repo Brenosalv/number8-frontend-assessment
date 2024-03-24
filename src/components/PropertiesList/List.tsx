@@ -3,8 +3,8 @@
 import { useFilterContext } from "@/contexts/FilterContext"
 import { FilterFormTypes } from "@/types/Filter"
 import { Property } from "@/types/Property"
+import { FILTER } from "@/utils/constants"
 import { Card } from "./Card"
-import { EmptyList } from "./EmptyList"
 
 interface ListProps {
   properties: Property[]
@@ -13,7 +13,7 @@ interface ListProps {
 export function List({ properties }: ListProps) {
   const { filterState } = useFilterContext()
 
-  const locallyStoredFilterStr = localStorage.getItem("@filter");
+  const locallyStoredFilterStr = localStorage.getItem(FILTER);
   const locallyStoredFilterObj: FilterFormTypes = locallyStoredFilterStr ? JSON.parse(locallyStoredFilterStr) : null
 
   const filteredProperties = (filterState || locallyStoredFilterObj) ? properties.filter(property => {
@@ -28,7 +28,7 @@ export function List({ properties }: ListProps) {
   return (
     <div className="flex items-center justify-center">
       {filteredProperties.length > 0 ? (
-        <div className="grid gap-x-4 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <ul className="grid gap-x-4 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {filteredProperties.map((property) => (
             <Card
               key={property.Id}
@@ -41,9 +41,11 @@ export function List({ properties }: ListProps) {
               thumbnailUrl={property.PictureURL}
             />
           ))}
-        </div>
+        </ul>
       ) : (
-        <EmptyList />
+        <span className="sm:mt-32 text-center">
+          Empty. Please try another filter.
+        </span>
       )}
     </div>
   )

@@ -1,5 +1,6 @@
 import { ContactAgentForm } from "@/components/ContactAgentForm"
 import { PropertyDetailsSection } from "@/components/PropertyDetailsSection"
+import { SaveProperty } from "@/components/SaveProperty"
 import { getPropertiesData } from "@/utils/getPropertiesData"
 
 interface PropertyDetailsProps {
@@ -17,7 +18,11 @@ export default async function PropertyDetails({ params }: PropertyDetailsProps) 
     return (
       <main className="flex gap-8 max-md:flex-col w-full">
         <PropertyDetailsSection property={property} />
-        <ContactAgentForm />
+
+        <section className="flex flex-col gap-8 w-[35%] max-md:w-full h-fit">
+          <SaveProperty newPropertyToSave={property} />
+          <ContactAgentForm />
+        </section>
       </main>
     )
   } catch (error) {

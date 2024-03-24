@@ -14,7 +14,7 @@ export function PropertyDetailsSection({ property }: PropertyDetailsSectionProps
   const dateListed = format(new Date(property?.DateListed || ""), "MMM dd, yyyy")
 
   return (
-    <section className="flex flex-col gap-4 w-[65%] max-md:w-full">
+    <section className="flex flex-col gap-3 w-[65%] max-md:w-full">
       <div className="flex justify-between">
         <div className="flex flex-col">
           <h1 className="text-2xl max-md:text-lg">
@@ -27,7 +27,7 @@ export function PropertyDetailsSection({ property }: PropertyDetailsSectionProps
         </div>
 
         <div className="flex flex-col text-right text-nowrap max-md:text-wrap">
-          <h2 className="text-2xl max-md:text-lg">
+          <h2 className="text-2xl max-md:text-lg max-md:text-nowrap">
             {price}
           </h2>
 
@@ -41,11 +41,11 @@ export function PropertyDetailsSection({ property }: PropertyDetailsSectionProps
         src={property?.PictureURL || ""}
         width={700}
         height={700}
-        className="h-2/5 object-cover bg-blue-800"
+        className="max-h-[372px] object-cover bg-blue-800"
         alt="Property image"
       />
 
-      <div className="flex justify-around items-center border p-4 max-md:flex-wrap max-md:gap-4">
+      <div className="flex justify-around items-center border border-gray-300 p-4 max-md:flex-wrap max-md:gap-4">
         <PropertyDetail name="bed" value={property?.Bedrooms || 0} />
         <PropertyDetail name="bath" value={property?.Bathrooms || 0} />
         <PropertyDetail name="parking" value={property?.Parking || 0} />
