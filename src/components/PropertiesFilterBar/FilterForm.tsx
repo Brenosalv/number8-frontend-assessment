@@ -32,6 +32,11 @@ export function FilterForm({
     resolver: yupResolver(filterValidationSchema)
   })
 
+  const {
+    reset,
+    handleSubmit
+  } = form
+
   const { filterState, dispatch } = useFilterContext()
 
   const [isFilterActive, setIsFilterActive] = useState(false)
@@ -42,7 +47,7 @@ export function FilterForm({
 
   function handleResetButtonClick() {
     dispatch({ type: "DELETE_ALL" })
-    form.reset()
+    reset()
     setIsFilterActive(false)
   }
 
@@ -54,7 +59,7 @@ export function FilterForm({
     <FormProvider {...form}>
       {isFilterActive ? (
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
           className="flex flex-row gap-x-8 w-full max-sm:grid max-sm:grid-cols-2 max-sm:gap-6"
         >
           <Filter.Root label="Bedrooms">
