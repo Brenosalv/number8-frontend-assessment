@@ -3,10 +3,9 @@
 import { useFilterContext } from '@/contexts/FilterContext'
 import { filterValidationSchema } from '@/schemas/filterForm'
 import { FilterFormTypes, FilterType } from '@/types/Filter'
-import { FILTER } from '@/utils/constants'
 import { getArrayByMaxNumber } from '@/utils/getMaxNumber'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Button } from '../Button'
 import { Filter } from '../Filters'
@@ -18,11 +17,6 @@ export function FilterForm({
   maxPrice,
   minPrice,
 }: FilterType) {
-  const locallyStoredFilterStr = localStorage.getItem(FILTER)
-  const locallyStoredFilterObj: FilterFormTypes | null = locallyStoredFilterStr
-    ? JSON.parse(locallyStoredFilterStr)
-    : null
-
   const initialValues = {
     bedrooms: 1,
     bathrooms: 1,
@@ -30,16 +24,20 @@ export function FilterForm({
     priceRange: maxPrice,
   }
 
+  const { filterState, dispatch } = useFilterContext()
+
   const form = useForm<FilterFormTypes>({
-    defaultValues: locallyStoredFilterObj || initialValues,
+    defaultValues: filterState?.storedFilter || initialValues,
     resolver: yupResolver(filterValidationSchema),
   })
 
   const { reset, handleSubmit } = form
 
-  const { filterState, dispatch } = useFilterContext()
-
   const [isFilterActive, setIsFilterActive] = useState(false)
+
+  useEffect(() => {
+    setIsFilterActive(!!filterState?.storedFilter)
+  }, [filterState?.storedFilter])
 
   function onSubmit(data: FilterFormTypes) {
     dispatch({ type: 'UPDATE_ALL', payload: data })
@@ -47,7 +45,7 @@ export function FilterForm({
 
   function handleResetButtonClick() {
     dispatch({ type: 'DELETE_ALL' })
-    reset()
+    reset(initialValues)
     setIsFilterActive(false)
   }
 
@@ -93,7 +91,7 @@ export function FilterForm({
 
           <Button.Primary type='submit'>Search</Button.Primary>
 
-          {(!!filterState || !!locallyStoredFilterObj) && (
+          {!!filterState?.storedFilter && (
             <Button.Secondary type='button' onClick={handleResetButtonClick}>
               Reset
             </Button.Secondary>

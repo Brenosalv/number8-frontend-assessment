@@ -1,6 +1,7 @@
 'use client'
 
 import { FilterFormTypes } from '@/types/Filter'
+import { getStoredFilter } from '@/utils/getStoredFilter'
 import { Dispatch, createContext, useContext, useReducer } from 'react'
 import { filterReducer } from './reducers/filterReducer'
 import {
@@ -17,11 +18,15 @@ const FilterContext = createContext<
   | undefined
 >(undefined)
 
-const initialState: FilterContextType | null = null
-
 export function FilterContextProvider({
   children,
 }: FilterContextProviderProps) {
+  const storedFilter = getStoredFilter()
+
+  const initialState: FilterContextType | null = {
+    storedFilter,
+  }
+
   const [filterState, dispatch] = useReducer<
     React.Reducer<FilterFormTypes | null, FilterAction>
   >(filterReducer, initialState)

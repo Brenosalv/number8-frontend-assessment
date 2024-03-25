@@ -1,9 +1,8 @@
 'use client'
 
 import { useFilterContext } from '@/contexts/FilterContext'
-import { FilterFormTypes } from '@/types/Filter'
 import { Property } from '@/types/Property'
-import { FILTER } from '@/utils/constants'
+import { filterProperty } from '@/utils/filterProperty'
 import { Card } from './Card'
 
 interface ListProps {
@@ -13,28 +12,19 @@ interface ListProps {
 export function List({ properties }: ListProps) {
   const { filterState } = useFilterContext()
 
-  const locallyStoredFilterStr = localStorage.getItem(FILTER)
-  const locallyStoredFilterObj: FilterFormTypes = locallyStoredFilterStr
-    ? JSON.parse(locallyStoredFilterStr)
-    : null
+  let filteredProperties = properties
 
-  const filteredProperties =
-    filterState || locallyStoredFilterObj
-      ? properties.filter((property) => {
-          return (
-            property.Bedrooms ===
-              (locallyStoredFilterObj?.bedrooms || filterState?.bedrooms) &&
-            property.Bathrooms ===
-              (locallyStoredFilterObj?.bathrooms || filterState?.bathrooms) &&
-            property.Parking ===
-              (locallyStoredFilterObj?.parking || filterState?.parking) &&
-            property['Sale Price'] <=
-              (locallyStoredFilterObj?.priceRange ||
-                filterState?.priceRange ||
-                0)
-          )
-        })
-      : properties
+  const { storedFilter, ...rest } = filterState || {}
+
+  if (storedFilter) {
+    filteredProperties = filteredProperties.filter((property) =>
+      filterProperty(property, storedFilter),
+    )
+  } else if (Object.keys(rest).length > 0) {
+    filteredProperties = filteredProperties.filter((property) =>
+      filterProperty(property, rest),
+    )
+  }
 
   return (
     <div className='flex items-center justify-center'>
