@@ -1,4 +1,5 @@
 import { getPropertiesData } from '@/utils/getPropertiesData'
+import { ErrorMessage } from '../ErrorMessage'
 import { List } from './List'
 
 export async function PropertiesList() {
@@ -7,6 +8,6 @@ export async function PropertiesList() {
 
     return <List properties={properties} />
   } catch (error) {
-    alert(error) // TODO: Implement a snackbar to show the error to the user.
+    return <ErrorMessage message={(error as Error).message} />
   }
 }

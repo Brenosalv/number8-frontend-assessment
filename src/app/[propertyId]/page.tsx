@@ -1,5 +1,6 @@
 import { Button } from '@/components/Button'
 import { ContactAgentForm } from '@/components/ContactAgentForm'
+import { ErrorMessage } from '@/components/ErrorMessage'
 import { PropertyDetailsSection } from '@/components/PropertyDetailsSection'
 import { SaveProperty } from '@/components/SaveProperty'
 import { getPropertiesData } from '@/utils/getPropertiesData'
@@ -34,6 +35,6 @@ export default async function PropertyDetails({
       </>
     )
   } catch (error) {
-    alert(error) // TODO: Implement a snackbar to show the error to the user.
+    return <ErrorMessage message={(error as Error).message} />
   }
 }
