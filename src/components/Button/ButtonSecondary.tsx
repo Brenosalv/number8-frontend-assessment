@@ -1,7 +1,7 @@
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  children: string;
+  children: string
 }
 
 export function ButtonSecondary({ children, ...rest }: ButtonProps) {

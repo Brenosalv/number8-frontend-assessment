@@ -1,23 +1,26 @@
-import { FilterFormTypes } from "@/types/Filter"
-import { FILTER } from "@/utils/constants"
-import { Reducer } from "react"
-import { FilterAction } from "../types"
+import { FilterFormTypes } from '@/types/Filter'
+import { FILTER } from '@/utils/constants'
+import { Reducer } from 'react'
+import { FilterAction } from '../types'
 
-export const filterReducer: Reducer<FilterFormTypes | null, FilterAction> = (state: FilterFormTypes | null, action: FilterAction): FilterFormTypes | null => {
+export const filterReducer: Reducer<FilterFormTypes | null, FilterAction> = (
+  state: FilterFormTypes | null,
+  action: FilterAction,
+): FilterFormTypes | null => {
   switch (action.type) {
-    case "SET_BEDROOMS":
+    case 'SET_BEDROOMS':
       return { ...state, bedrooms: action.payload }
-    case "SET_BATHROOMS":
+    case 'SET_BATHROOMS':
       return { ...state, bathrooms: action.payload }
-    case "SET_PARKING":
+    case 'SET_PARKING':
       return { ...state, parking: action.payload }
-    case "SET_PRICE_RANGE":
+    case 'SET_PRICE_RANGE':
       return { ...state, priceRange: action.payload }
-    case "UPDATE_ALL": {
+    case 'UPDATE_ALL': {
       localStorage.setItem(FILTER, JSON.stringify(action.payload))
       return { ...action.payload }
     }
-    case "DELETE_ALL": {
+    case 'DELETE_ALL': {
       localStorage.removeItem(FILTER)
       return null
     }

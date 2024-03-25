@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { InputHTMLAttributes } from "react"
-import { useFormContext } from "react-hook-form"
+import { InputHTMLAttributes } from 'react'
+import { useFormContext } from 'react-hook-form'
 
 interface FilterRangeProps extends InputHTMLAttributes<HTMLInputElement> {
   minPrice: number
@@ -14,12 +14,14 @@ export function FilterRange({ maxPrice, minPrice, ...rest }: FilterRangeProps) {
 
   const watchedValue = watch(rest.name)
 
-  const currentValue = watchedValue ? `$${String(watchedValue).slice(0, 3)}k` : ""
+  const currentValue = watchedValue
+    ? `$${String(watchedValue).slice(0, 3)}k`
+    : ''
 
   return (
-    <div className="flex items-center gap-2 relative">
+    <div className='flex items-center gap-2 relative'>
       <input
-        type="range"
+        type='range'
         min={minPrice}
         max={maxPrice}
         step={1000}
@@ -27,12 +29,14 @@ export function FilterRange({ maxPrice, minPrice, ...rest }: FilterRangeProps) {
         {...register(rest.name)}
       />
 
-      {currentValue && <span
-        id="currentValue"
-        className="text-gray-600 text-xs w-24 absolute top-4 left-12"
-      >
-        Max: {currentValue}
-      </span>}
+      {currentValue && (
+        <span
+          id='currentValue'
+          className='text-gray-600 text-xs w-24 absolute top-4 left-12'
+        >
+          Max: {currentValue}
+        </span>
+      )}
     </div>
   )
 }

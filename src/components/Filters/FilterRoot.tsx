@@ -1,4 +1,4 @@
-import { ReactNode } from "react"
+import { ReactNode } from 'react'
 
 interface FilterRootProps {
   label: string
@@ -7,8 +7,8 @@ interface FilterRootProps {
 
 export function FilterRoot({ label, children }: FilterRootProps) {
   return (
-    <div className="flex gap-2 items-center w-full flex-wrap max-[915px]:flex-col">
-      <label className="text-nowrap">{label}:</label>
+    <div className='flex gap-2 items-center w-full flex-wrap max-[915px]:flex-col'>
+      <label className='text-nowrap'>{label}:</label>
       {children}
     </div>
   )

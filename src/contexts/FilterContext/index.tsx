@@ -1,22 +1,30 @@
-"use client"
+'use client'
 
-import { FilterFormTypes } from "@/types/Filter"
-import { Dispatch, createContext, useContext, useReducer } from "react"
-import { filterReducer } from "./reducers/filterReducer"
-import { FilterAction, FilterContextProviderProps, FilterContextType } from "./types"
+import { FilterFormTypes } from '@/types/Filter'
+import { Dispatch, createContext, useContext, useReducer } from 'react'
+import { filterReducer } from './reducers/filterReducer'
+import {
+  FilterAction,
+  FilterContextProviderProps,
+  FilterContextType,
+} from './types'
 
-const FilterContext = createContext<{
-  filterState: FilterContextType | null
-  dispatch: Dispatch<FilterAction>
-} | undefined>(undefined)
+const FilterContext = createContext<
+  | {
+      filterState: FilterContextType | null
+      dispatch: Dispatch<FilterAction>
+    }
+  | undefined
+>(undefined)
 
 const initialState: FilterContextType | null = null
 
-export function FilterContextProvider({ children }: FilterContextProviderProps) {
-  const [filterState, dispatch] = useReducer<React.Reducer<FilterFormTypes | null, FilterAction>>(
-    filterReducer,
-    initialState
-  )
+export function FilterContextProvider({
+  children,
+}: FilterContextProviderProps) {
+  const [filterState, dispatch] = useReducer<
+    React.Reducer<FilterFormTypes | null, FilterAction>
+  >(filterReducer, initialState)
 
   return (
     <FilterContext.Provider value={{ filterState, dispatch }}>

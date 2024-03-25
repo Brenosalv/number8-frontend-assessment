@@ -1,5 +1,5 @@
-import { getPropertiesData } from "@/utils/getPropertiesData"
-import { FilterForm } from "./FilterForm"
+import { getPropertiesData } from '@/utils/getPropertiesData'
+import { FilterForm } from './FilterForm'
 
 export async function PropertiesFilterBar() {
   try {

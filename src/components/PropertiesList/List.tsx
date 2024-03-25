@@ -1,10 +1,10 @@
-"use client"
+'use client'
 
-import { useFilterContext } from "@/contexts/FilterContext"
-import { FilterFormTypes } from "@/types/Filter"
-import { Property } from "@/types/Property"
-import { FILTER } from "@/utils/constants"
-import { Card } from "./Card"
+import { useFilterContext } from '@/contexts/FilterContext'
+import { FilterFormTypes } from '@/types/Filter'
+import { Property } from '@/types/Property'
+import { FILTER } from '@/utils/constants'
+import { Card } from './Card'
 
 interface ListProps {
   properties: Property[]
@@ -13,22 +13,33 @@ interface ListProps {
 export function List({ properties }: ListProps) {
   const { filterState } = useFilterContext()
 
-  const locallyStoredFilterStr = localStorage.getItem(FILTER);
-  const locallyStoredFilterObj: FilterFormTypes = locallyStoredFilterStr ? JSON.parse(locallyStoredFilterStr) : null
+  const locallyStoredFilterStr = localStorage.getItem(FILTER)
+  const locallyStoredFilterObj: FilterFormTypes = locallyStoredFilterStr
+    ? JSON.parse(locallyStoredFilterStr)
+    : null
 
-  const filteredProperties = (filterState || locallyStoredFilterObj) ? properties.filter(property => {
-    return (
-      property.Bedrooms === (locallyStoredFilterObj?.bedrooms || filterState?.bedrooms) &&
-      property.Bathrooms === (locallyStoredFilterObj?.bathrooms || filterState?.bathrooms) &&
-      property.Parking === (locallyStoredFilterObj?.parking || filterState?.parking) &&
-      property["Sale Price"] <= (locallyStoredFilterObj?.priceRange || filterState?.priceRange || 0)
-    )
-  }) : properties
+  const filteredProperties =
+    filterState || locallyStoredFilterObj
+      ? properties.filter((property) => {
+          return (
+            property.Bedrooms ===
+              (locallyStoredFilterObj?.bedrooms || filterState?.bedrooms) &&
+            property.Bathrooms ===
+              (locallyStoredFilterObj?.bathrooms || filterState?.bathrooms) &&
+            property.Parking ===
+              (locallyStoredFilterObj?.parking || filterState?.parking) &&
+            property['Sale Price'] <=
+              (locallyStoredFilterObj?.priceRange ||
+                filterState?.priceRange ||
+                0)
+          )
+        })
+      : properties
 
   return (
-    <div className="flex items-center justify-center">
+    <div className='flex items-center justify-center'>
       {filteredProperties.length > 0 ? (
-        <ul className="grid gap-x-4 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <ul className='grid gap-x-4 gap-y-10 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
           {filteredProperties.map((property) => (
             <Card
               key={property.Id}
@@ -37,13 +48,13 @@ export function List({ properties }: ListProps) {
               title={property.Title}
               bedrooms={property.Bedrooms}
               bathrooms={property.Bathrooms}
-              price={property["Sale Price"]}
+              price={property['Sale Price']}
               thumbnailUrl={property.PictureURL}
             />
           ))}
         </ul>
       ) : (
-        <span className="sm:mt-32 text-center">
+        <span className='sm:mt-32 text-center'>
           Empty. Please try another filter.
         </span>
       )}

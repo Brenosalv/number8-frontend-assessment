@@ -3,7 +3,7 @@ export interface Property {
   DateListed: string
   Title: string
   Description: string
-  "Sale Price": number
+  'Sale Price': number
   ThumbnailURL: string
   PictureURL: string
   Location: string
