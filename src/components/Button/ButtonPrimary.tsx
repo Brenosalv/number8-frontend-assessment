@@ -8,7 +8,7 @@ export function ButtonPrimary({ children, ...rest }: ButtonProps) {
   return (
     <button
       {...rest}
-      className={`bg-blue-400 text-white px-4 py-2 hover:bg-blue-500 transition-colors ${rest.className}`}
+      className={`bg-blue-400 text-white px-4 py-2 h-fit hover:bg-blue-500 transition-colors ${rest.className}`}
     >
       {children}
     </button>
