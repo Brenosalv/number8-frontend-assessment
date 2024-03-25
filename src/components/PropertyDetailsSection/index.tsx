@@ -19,7 +19,7 @@ export function PropertyDetailsSection({
   )
 
   return (
-    <section className='flex flex-col gap-3 w-[65%] max-md:w-full'>
+    <div className='flex flex-col gap-3 w-[65%] max-md:w-full'>
       <div className='flex justify-between'>
         <div className='flex flex-col'>
           <h1 className='text-2xl max-md:text-lg'>{property?.Title}</h1>
@@ -55,6 +55,6 @@ export function PropertyDetailsSection({
       </div>
 
       <p className='text-gray-500 max-md:text-sm'>{property?.Description}</p>
-    </section>
+    </div>
   )
 }

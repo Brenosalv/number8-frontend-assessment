@@ -1,3 +1,4 @@
+import { ButtonBack } from '@/components/Button/ButtonBack'
 import { ContactAgentForm } from '@/components/ContactAgentForm'
 import { PropertyDetailsSection } from '@/components/PropertyDetailsSection'
 import { SaveProperty } from '@/components/SaveProperty'
@@ -18,14 +19,19 @@ export default async function PropertyDetails({
     const property = properties.find(({ Id }) => Id === Number(propertyId))
 
     return (
-      <main className='flex gap-8 max-md:flex-col w-full'>
-        <PropertyDetailsSection property={property} />
+      <>
+        <header className='mb-6'>
+          <ButtonBack />
+        </header>
+        <main className='flex gap-8 max-md:flex-col w-full'>
+          <PropertyDetailsSection property={property} />
 
-        <section className='flex flex-col gap-8 w-[35%] max-md:w-full h-fit'>
-          <SaveProperty newPropertyToSave={property} />
-          <ContactAgentForm />
-        </section>
-      </main>
+          <div className='flex flex-col gap-8 w-[35%] max-md:w-full h-fit'>
+            <SaveProperty newPropertyToSave={property} />
+            <ContactAgentForm />
+          </div>
+        </main>
+      </>
     )
   } catch (error) {
     alert(error) // TODO: Implement a snackbar to show the error to the user.
