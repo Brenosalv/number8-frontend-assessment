@@ -1,4 +1,4 @@
-import { ButtonBack } from '@/components/Button/ButtonBack'
+import { Button } from '@/components/Button'
 import { ContactAgentForm } from '@/components/ContactAgentForm'
 import { PropertyDetailsSection } from '@/components/PropertyDetailsSection'
 import { SaveProperty } from '@/components/SaveProperty'
@@ -21,7 +21,7 @@ export default async function PropertyDetails({
     return (
       <>
         <header className='mb-6'>
-          <ButtonBack />
+          <Button.Back />
         </header>
         <main className='flex gap-8 max-md:flex-col w-full'>
           <PropertyDetailsSection property={property} />
