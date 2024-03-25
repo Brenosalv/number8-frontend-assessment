@@ -9,7 +9,8 @@ interface PropertiesData extends FilterType {
 export async function getPropertiesData(): Promise<PropertiesData> {
   try {
     const response = await fetch(
-      'https://s3.us-west-2.amazonaws.com/cdn.number8.com/LA/listings.json',
+      process.env.API_URL ||
+        'https://s3.us-west-2.amazonaws.com/cdn.number8.com/LA/listings.json',
       { next: { revalidate: 3600 } },
     )
 
