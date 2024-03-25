@@ -4,6 +4,13 @@ import { ErrorMessage } from '@/components/ErrorMessage'
 import { PropertyDetailsSection } from '@/components/PropertyDetailsSection'
 import { SaveProperty } from '@/components/SaveProperty'
 import { getPropertiesData } from '@/utils/getPropertiesData'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: '[Property Type] for Sale - [Property Address] - N8',
+  description:
+    'Discover the beauty of this [Property Type] situated at [Property Address]. Browse through images, specifications, and features of this property for sale on N8. Find your perfect match today!',
+}
 
 interface PropertyDetailsProps {
   params: {
